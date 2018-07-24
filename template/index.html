@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="telephone=no,email=no" name="format-detection">
+  <meta name="applicable-device" content="mobile">
+  <link rel="canonical" href="http://dripsea.top/" />
+  <title>逆水寒科举答题器-韩子卢专用</title>
+  <link rel="shortcut icon" sizes="16x16" href="src/images/favicon_16.ico">
+  <link rel="shortcut icon" sizes="32x32" href="src/images/favicon_32.ico">
+  <meta name="keywords" content="逆水寒 科举 答题器">
+  <meta name="description" content="逆水寒科举答题器-韩子卢专用">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <div class="container-fluid">
+      <div class="row">
+        <div id="header" class="col-sm-12">
+          <p>逆水寒科举答题器-韩子卢专用</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-md-offset-2">
+          <div class="input-group">
+            <input id="search_text" type="text" placeholder="请输入问题" class="form-control">
+            <span class="input-group-btn">
+              <button id="btn_search" class="btn btn-primary" type="button">
+                搜索
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-md-offset-2">
+          <div id="radio_question_type">
+            <label class="radio-inline">
+              <input type="radio" name="questionType" id="normal" value="normal" checked>常规题
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="questionType" id="poem" value="poem">填诗题
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="questionType" id="clue" value="clue">线索题
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-md-offset-2">
+          <ul id="search_result" class="list-unstyled">
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-md-offset-2 text-center">
+          <button id="btn_baidu" type="button" class="btn btn-warning">点击在百度中搜索上述关键字</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-md-offset-2">
+          <iframe id="baidu_iframe" src="https://m.baidu.com/s?word=逆水寒+科举+">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
