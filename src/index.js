@@ -43,7 +43,7 @@ const clearSearchResult = () => {
 /**
  * 搜索常规答案
  */
-const searchAnswer = _.throttle((searchText) => {
+const searchNormalAnswer = (searchText) => {
   var result = questionLib.filter(l => {
     return new RegExp(searchText).test(l.question)
   });
@@ -51,18 +51,18 @@ const searchAnswer = _.throttle((searchText) => {
     searchInBaidu(searchText)
     return
   }
-  if (result.length < 10) {
+  if (result.length < 5) {
     showBtnBaidu()
   }
   var htmlResult = result.slice(0, 10).map((x) => {
     return `<li><p><span class="label label-danger">问</span><span>${x.question}</span></p><p><span class="label label-success">答</span><span>${x.answer}</span></p></li>`
   }).join('')
   $('#search_result').empty().append(htmlResult)
-}, 1000)
+}
 /**
  * 搜索填诗题答案
  */
-const searchPoemAnswer = _.throttle((searchText) => {
+const searchPoemAnswer = (searchText) => {
   var keys = searchText.split('');
   var result = poemQuestionLib.filter(l => {
     for (var i = 0, len = keys.length; i < len; i++) {
@@ -76,18 +76,18 @@ const searchPoemAnswer = _.throttle((searchText) => {
     searchInBaidu(searchText)
     return
   }
-  if (result.length < 10) {
+  if (result.length < 5) {
     showBtnBaidu(searchText)
   }
-  var htmlResult = result.slice(0, 10).map((x) => {
+  var htmlResult = result.map((x) => {
     return `<li><p><span class="label label-danger">问</span><span>${x.question}</span></p><p><span class="label label-success">答</span><span>${x.answer}</span></p></li>`
   }).join('')
   $('#search_result').empty().append(htmlResult)
-}, 1000)
+}
 /**
  * 搜索线索题答案
  */
-const searchClueAnswer = _.throttle((searchText) => {
+const searchClueAnswer = (searchText) => {
   var result = clueQuestionLib.filter(l => {
     return new RegExp(searchText).test(l.question)
   })
@@ -95,30 +95,39 @@ const searchClueAnswer = _.throttle((searchText) => {
     searchInBaidu(searchText)
     return
   }
-  if (result.length < 10) {
+  if (result.length < 5) {
     showBtnBaidu(searchText)
   }
   var htmlResult = result.slice(0, 10).map((x) => {
     return `<li><p><span class="label label-danger">问</span><span>线索题</span><pre>${x.question}</pre></p><p><span class="label label-success">答</span><span>${x.answer}</span></p></li>`
   }).join('')
   $('#search_result').empty().append(htmlResult)
+}
+/**
+ * 搜索答案
+ */
+const searchAnswer = _.throttle(() => {
+  clearSearchResult()
+  var searchText = $('#search_text').val()
+  if (searchText === '') {
+    return
+  }
+  var question_type = $('#radio_question_type input:checked').val()
+  if (question_type == 'normal') {
+    searchNormalAnswer(searchText)
+  } else if (question_type == 'poem') {
+    searchPoemAnswer(searchText)
+  } else if (question_type == 'clue') {
+    searchClueAnswer(searchText)
+  }
 }, 1000)
 
 $(function () {
   // 点击搜索
-  $('#btn_search').off('click').click((e) => {
-    clearSearchResult()
-    var searchText = $('#search_text').val()
-    if (searchText === '') {
-      return
-    }
-    var question_type = $('#radio_question_type input:checked').val()
-    if (question_type == 'normal') {
-      searchAnswer(searchText)
-    } else if (question_type == 'poem') {
-      searchPoemAnswer(searchText)
-    } else if (question_type == 'clue') {
-      searchClueAnswer(searchText)
+  $('#btn_search').off('click').click(searchAnswer);
+  $('#search_text').off('keypress').keypress((e) => {
+    if (e.key === 'Enter') {
+      searchAnswer();
     }
   });
   // 点击百度搜索的按钮

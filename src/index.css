@@ -65,6 +65,9 @@ body::-webkit-scrollbar-track {
   line-height: 1em;
   padding: 0 8px;
   background-color: #ffffff75;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  margin:0;
 }
 #search_result>li{
   border-top:1px solid #ddd;
@@ -104,4 +107,5 @@ body::-webkit-scrollbar-track {
 }
 #btn_baidu{
   display: none;
+  margin-top: 10px;
 }
